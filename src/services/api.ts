@@ -19,12 +19,14 @@ export class ApiService {
     if (ENV_CONFIG.DEBUG) {
       console.log('Making request to:', url);
       console.log('Request options:', options);
+      console.log('Origin:', window.location.origin);
     }
 
     try {
       const response = await fetch(url, {
         ...options,
         signal: controller.signal,
+        mode: 'cors',
         headers: {
           ...HTTP_CONFIG.DEFAULT_HEADERS,
           ...options.headers,
@@ -50,6 +52,7 @@ export class ApiService {
 
   static async submitForm(formData: FormData): Promise<{ success: boolean; message?: string }> {
     try {
+      // First, try the normal POST request
       const response = await this.makeRequest(ENV_CONFIG.FORM_SUBMISSION_URL, {
         method: 'POST',
         body: JSON.stringify(formData),
@@ -79,6 +82,20 @@ export class ApiService {
         };
       }
     } catch (error) {
+      console.error('Form submission error:', error);
+
+      // Check if it's a CORS error and provide helpful message
+      if (error instanceof TypeError && (
+        error.message.includes('CORS') ||
+        error.message.includes('Network request failed') ||
+        error.message.includes('Failed to fetch')
+      )) {
+        return {
+          success: false,
+          message: 'CORS error: Please make sure your Google Apps Script is properly configured and deployed.'
+        };
+      }
+
       if (error instanceof DOMException && error.name === 'AbortError') {
         return { success: false, message: 'Request timed out. Please try again.' };
       }

@@ -1,0 +1,11 @@
+{
+  "name": "pwa-share-point-api",
+  "version": "1.0.0",
+  "description": "API functions for PWA Share Point",
+  "private": true,
+  "devDependencies": {
+    "@vercel/node": "^3.0.0",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}

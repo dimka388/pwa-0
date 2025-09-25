@@ -11,6 +11,12 @@ export interface FormData {
 }
 
 export class ApiService {
+  // Check if using Vercel serverless proxy (production or local dev)
+  private static isUsingProxy(): boolean {
+    return ENV_CONFIG.FORM_SUBMISSION_URL.includes('vercel.app') ||
+           ENV_CONFIG.FORM_SUBMISSION_URL.includes('localhost');
+  }
+
   private static async makeRequest(url: string, options: RequestInit): Promise<Response> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), HTTP_CONFIG.TIMEOUT);
@@ -51,8 +57,14 @@ export class ApiService {
   }
 
   static async submitForm(formData: FormData): Promise<{ success: boolean; message?: string }> {
+    const usingProxy = this.isUsingProxy();
+
+    if (ENV_CONFIG.DEBUG) {
+      console.log('Submitting form via:', usingProxy ? 'Vercel Serverless Function' : 'Direct Google Sheets');
+      console.log('URL:', ENV_CONFIG.FORM_SUBMISSION_URL);
+    }
+
     try {
-      // First, try the normal POST request
       const response = await this.makeRequest(ENV_CONFIG.FORM_SUBMISSION_URL, {
         method: 'POST',
         body: JSON.stringify(formData),
@@ -61,7 +73,16 @@ export class ApiService {
       if (response.ok) {
         try {
           const result = await response.json();
-          // Handle both old "OK" responses and new JSON responses
+
+          // Handle proxy server responses (standardized format)
+          if (usingProxy) {
+            return {
+              success: result.success ?? true,
+              message: result.message || 'Form submitted successfully!'
+            };
+          }
+
+          // Handle direct Google Sheets responses
           if (typeof result === 'string' && result === 'OK') {
             return { success: true, message: 'Form submitted successfully!' };
           } else if (result.success !== undefined) {

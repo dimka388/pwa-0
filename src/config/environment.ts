@@ -9,15 +9,15 @@ export interface EnvironmentConfig {
 // Development environment
 const developmentConfig: EnvironmentConfig = {
   API_BASE_URL: 'http://localhost:3000/api',
-  FORM_SUBMISSION_URL: 'https://script.google.com/macros/s/AKfycbzzK1haMLCr34L-Iin14Eo6q9etJ2EY6inPPrMlSm1qGDOgAM7uTC4NdaaS67nIZ8ju/exec',
+  FORM_SUBMISSION_URL: 'http://localhost:3000/api/submit-form', // Use local Vercel dev server
   TIMEOUT: 10000,
   DEBUG: true,
 };
 
 // Production environment
 const productionConfig: EnvironmentConfig = {
-  API_BASE_URL: 'https://your-production-api.com/api',
-  FORM_SUBMISSION_URL: 'https://script.google.com/macros/s/AKfycbzzK1haMLCr34L-Iin14Eo6q9etJ2EY6inPPrMlSm1qGDOgAM7uTC4NdaaS67nIZ8ju/exec',
+  API_BASE_URL: 'https://pwa-share-point-dmytros-projects-200e3c35.vercel.app/api',
+  FORM_SUBMISSION_URL: 'https://pwa-share-point-dmytros-projects-200e3c35.vercel.app/api/submit-form',
   TIMEOUT: 8000,
   DEBUG: false,
 };

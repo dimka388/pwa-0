@@ -5,21 +5,23 @@ on:
   push:
     branches:
       - master
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.13'
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Rewrite Manifest Path in Index
         run: sed -i 's@/manifest.json@${{ github.event.repository.name }}/manifest.json@g' ./index.html && cat index.html
@@ -36,8 +38,15 @@ jobs:
       - name: Redirect 404 to Index for SPA
         run: cp dist/index.html dist/404.html
 
+      - name: Verify Build Output
+        run: |
+          echo "Build completed. Contents of dist folder:"
+          ls -la dist/
+          echo "Size of dist folder:"
+          du -sh dist/
+
       - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist/
 
@@ -52,4 +61,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4

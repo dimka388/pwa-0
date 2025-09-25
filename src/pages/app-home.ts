@@ -5,6 +5,7 @@ import '@shoelace-style/shoelace/dist/components/card/card.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 
 import { styles } from '../styles/shared-styles';
+import { resolveRouterPath } from '../router';
 
 @customElement('app-home')
 export class AppHome extends LitElement {
@@ -102,6 +103,12 @@ export class AppHome extends LitElement {
                 <sl-button size="small" href="https://scholar.harvard.edu/files/torman_personal/files/samplepptx.pptx">PPTX</sl-button>
               </li>
             </ul>
+
+            <div style="margin-top: 20px;">
+              <h3>Navigation:</h3>
+              <sl-button href="${resolveRouterPath('about')}" variant="neutral">About Page</sl-button>
+              <sl-button href="${resolveRouterPath('form')}" variant="primary" style="margin-left: 10px;">Form Page</sl-button>
+            </div>
           </sl-card>
         </div>
       </main>

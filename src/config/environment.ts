@@ -9,7 +9,7 @@ export interface EnvironmentConfig {
 // Development environment
 const developmentConfig: EnvironmentConfig = {
   API_BASE_URL: 'http://localhost:3000/api',
-  FORM_SUBMISSION_URL: 'https://script.google.com/macros/s/AKfycbzxHTC5EDzPrp0qPDvtnz-jPS4rcFfBW6hRz0TL10CiCnzFxJEKQbSbeOxe_UJFTnxP/exec',
+  FORM_SUBMISSION_URL: 'https://script.google.com/macros/s/AKfycbzzK1haMLCr34L-Iin14Eo6q9etJ2EY6inPPrMlSm1qGDOgAM7uTC4NdaaS67nIZ8ju/exec',
   TIMEOUT: 10000,
   DEBUG: true,
 };
@@ -17,7 +17,7 @@ const developmentConfig: EnvironmentConfig = {
 // Production environment
 const productionConfig: EnvironmentConfig = {
   API_BASE_URL: 'https://your-production-api.com/api',
-  FORM_SUBMISSION_URL: 'https://script.google.com/macros/s/AKfycbzxHTC5EDzPrp0qPDvtnz-jPS4rcFfBW6hRz0TL10CiCnzFxJEKQbSbeOxe_UJFTnxP/exec',
+  FORM_SUBMISSION_URL: 'https://script.google.com/macros/s/AKfycbzzK1haMLCr34L-Iin14Eo6q9etJ2EY6inPPrMlSm1qGDOgAM7uTC4NdaaS67nIZ8ju/exec',
   TIMEOUT: 8000,
   DEBUG: false,
 };

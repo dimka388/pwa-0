@@ -1,7 +1,7 @@
 // API Configuration
 export const API_CONFIG = {
   // Form submission endpoint
-  FORM_SUBMISSION_URL: 'https://script.google.com/macros/s/AKfycbzxHTC5EDzPrp0qPDvtnz-jPS4rcFfBW6hRz0TL10CiCnzFxJEKQbSbeOxe_UJFTnxP/exec',
+  FORM_SUBMISSION_URL: 'https://script.google.com/macros/s/AKfycbzzK1haMLCr34L-Iin14Eo6q9etJ2EY6inPPrMlSm1qGDOgAM7uTC4NdaaS67nIZ8ju/exec',
 
   // Other API endpoints can be added here
   // SHAREPOINT_API_URL: 'https://your-sharepoint-api.com/api',
